@@ -1,0 +1,25 @@
+--Create a Clothing Store Database
+
+CREATE TABLE store (id INTEGER PRIMARY KEY, item TEXT, price INTEGER, aisle INTEGER, location TEXT);
+
+INSERT INTO store VALUES(1,"crop_top",25,0,"online");
+INSERT INTO store VALUES(2,"tshirt",10,7,"in_store");
+INSERT INTO store VALUES(3,"yoga_pants",35,5,"in_store");
+INSERT INTO store VALUES(4,"skirt",30,5,"in_store");
+INSERT INTO store VALUES(5,"jeans",65,7,"in_store");
+INSERT INTO store VALUES(6,"jacket",99,0,"online");
+INSERT INTO store VALUES(7,"bolero",45,11,"in_store");
+INSERT INTO store VALUES(8,"sweatpants",70,4,"in_store");
+INSERT INTO store VALUES(9,"sweatshirt",85,4,"in_store");
+INSERT INTO store VALUES(10,"scarf",15,6,"in_store");
+INSERT INTO store VALUES(11,"shorts",24,5,"in_store");
+INSERT INTO store VALUES(12,"shacket",18,3,"in_store");
+INSERT INTO store VALUES(13,"socks",10,2,"in_store");
+INSERT INTO store VALUES(14,"tank_top",15,2,"in_store");
+INSERT INTO store VALUES(15,"sweater",35,4,"in_store");
+
+--Display database exluding online only items
+SELECT * FROM store WHERE location="in_store"
+
+--Display database ordered by price and location past aisle 5
+SELECT * FROM store WHERE aisle>5 ORDER BY price
