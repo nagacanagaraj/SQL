@@ -1,4 +1,5 @@
 --In this SQL I'll be querying a database with Marvel Character Data (as seen below).
+
 CREATE TABLE marvels (ID INTEGER PRIMARY KEY,
     name TEXT,
     popularity INTEGER,
