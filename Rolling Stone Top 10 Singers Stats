@@ -1,0 +1,72 @@
+-- Looking into the Rolling Stone List of Top 200 singers, I picked the Top 10 and pulled their data from the internet to create three different tables.
+
+-- THe first table consists of the singer's full names, Rolling Stone Rankings, and their total number of record sales.
+CREATE TABLE singers (id INTEGER PRIMARY KEY,
+    full_name TEXT,
+    record_sales INTEGER,
+    rollingstone_ranking INTEGER);
+    
+INSERT INTO singers (full_name, record_sales, rollingstone_ranking) VALUES ("Otis Redding", 4625000, 9);
+INSERT INTO singers (full_name, record_sales, rollingstone_ranking) VALUES ("Stevie Wonder", 100000000, 7);
+INSERT INTO singers (full_name, record_sales, rollingstone_ranking) VALUES ("Billie Holiday", 259600, 4);
+INSERT INTO singers (full_name, record_sales, rollingstone_ranking) VALUES ("Sam Cooke", 960500, 3);
+INSERT INTO singers (full_name, record_sales, rollingstone_ranking) VALUES ("Whitney Houston", 200000000, 2);
+INSERT INTO singers (full_name, record_sales, rollingstone_ranking) VALUES ("Aretha Franklin", 75000000, 1);
+INSERT INTO singers (full_name, record_sales, rollingstone_ranking) VALUES ("Mariah Carey", 220000000, 5);
+INSERT INTO singers (full_name, record_sales, rollingstone_ranking) VALUES ("Beyonce", 29500000, 8);
+INSERT INTO singers (full_name, record_sales, rollingstone_ranking) VALUES ("Al Green", 20000000, 10);
+INSERT INTO singers (full_name, record_sales, rollingstone_ranking) VALUES ("Ray Charles", 10465695, 6);
+
+-- The second table consists of the singers and their genre of expertise (some of multiple).
+CREATE TABLE expertise (id INTEGER PRIMARY KEY,
+    full_name TEXT,
+    genre text);
+    
+INSERT INTO expertise (full_name, genre) VALUES ("Otis Redding", "R&B");
+INSERT INTO expertise (full_name, genre) VALUES ("Stevie Wonder", "R&B, pop, jazz");
+INSERT INTO expertise (full_name, genre) VALUES ("Beyonce", "RnB");
+INSERT INTO expertise (full_name, genre) VALUES ("Mariah Carey", "pop");
+INSERT INTO expertise (full_name, genre) VALUES ("Aretha Franklin", "R&B");
+INSERT INTO expertise (full_name, genre) VALUES ("Sam Cooke", "soul, R&B");
+INSERT INTO expertise (full_name, genre) VALUES ("Al Green", "soul");
+INSERT INTO expertise (full_name, genre) VALUES ("Billie Holiday", "jazz");
+INSERT INTO expertise (full_name, genre) VALUES ("Whitney Houston", "pop");
+INSERT INTO expertise (full_name, genre) VALUES ("Ray Charles", "R&B, soul");
+
+-- The third table consists of the singers and their home states.
+CREATE TABLE home_state (id INTEGER PRIMARY KEY,
+    full_name TEXT,
+    home_state TEXT);
+    
+INSERT INTO home_state (full_name, home_state) VALUES ("Beyonce", "Texas");
+INSERT INTO home_state (full_name, home_state) VALUES ("Ray Charles", "Georgia");
+INSERT INTO home_state (full_name, home_state) VALUES ("Aretha Franklin", "Tennessee");
+INSERT INTO home_state (full_name, home_state) VALUES ("Al Green", "Arkansas");
+INSERT INTO home_state (full_name, home_state) VALUES ("Whitney Houston", "New Jersey");
+INSERT INTO home_state (full_name, home_state) VALUES ("Mariah Carey", "New York");
+INSERT INTO home_state (full_name, home_state) VALUES ("Otis Redding", "Georgia");
+INSERT INTO home_state (full_name, home_state) VALUES ("Sam Cooke", "Mississippi");
+INSERT INTO home_state (full_name, home_state) VALUES ("Stevie Wonder", "Michigan");
+INSERT INTO home_state (full_name, home_state) VALUES ("Billie Holiday", "Pennsylvania");
+
+-- I selected all the data from all three tables and grouped it by the singers in order to visualize the data set.
+SELECT * FROM singers, expertise, home_state
+    GROUP BY singers.full_name;
+
+-- Who are the Rolling Stone's Top 10 Singers of All time and where do they come from?
+SELECT singers.rollingstone_ranking, singers.full_name, home_state.home_state FROM singers
+    JOIN home_state
+    ON singers.full_name=home_state.full_name
+    ORDER BY rollingstone_ranking ASC;
+
+-- What are the record sales of the Rolling Stone Top 10 singers who come from Georgia?
+SELECT home_state.full_name, singers.record_sales FROM home_state
+    JOIN singers
+    ON singers.full_name=home_state.full_name
+    WHERE home_state.home_state="Georgia";
+    
+-- Which of the Rolling Stone Top 10 singers are R&B experts?
+SELECT singers.full_name, expertise.genre FROM singers
+    JOIN expertise
+    ON singers.full_name=expertise.full_name
+    WHERE genre LIKE "%R&B%";
