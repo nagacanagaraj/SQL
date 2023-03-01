@@ -1,4 +1,4 @@
---Example of queries written in POSTgreSQL. Dataset was pulled from a preexisting database.
+--In this SQL, I'm querying netflix database to answer questions about the data. (POSTgreSQL)
 
 --Join and display both sets of data to visualize dataset.
 SELECT
