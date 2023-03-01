@@ -1,0 +1,40 @@
+--In this SQl, I'll be querying a database with customer and order datas to quanitify sales statistics.
+
+--How many orders were placed in January?
+SELECT COUNT(orderID) FROM BIT_DB.JanSales
+WHERE length(orderID) = 6
+AND orderID <> 'Order ID';
+
+--How many of those orders were for an iPhone?
+SELECT COUNT(product) FROM BIT_DB.JanSales
+WHERE product = 'iPhone'
+AND length(orderID) = 6
+AND orderID <> 'Order ID';
+
+--Select the customer account numbers for all the orders that were placed in February.
+SELECT distinct customers.acctnum FROM BIT_DB.customers
+JOIN BIT_DB.FebSales
+ON customers.order_id = Febsales.orderID
+AND length(orderID) = 6
+AND orderID <> 'Order ID';
+
+--Which product was the cheapest one sold in January, and what was the price?
+SELECT distinct product, price FROM BIT_DB.JanSales
+WHERE price IN (SELECT MIN(price) FROM BIT_DB.JanSales);
+
+--What is the total revenue for each product sold in January?
+SELECT SUM(quantity)*price as revenue, product FROM BIT_DB.JanSales
+GROUP BY product;
+
+--Which products were sold in February at 548 Lincoln St, Seattle, WA 98101, how many of each were sold, and what was the total revenue?
+SELECT product, SUM(quantity) as total_quantity, SUM(quantity)*price as total_revenue FROM BIT_DB.FebSales
+WHERE location LIKE '%548 Lincoln St, Seattle, WA 98101%'
+GROUP BY product;
+
+--How many customers ordered more than 2 products at a time in February, and what was the average amount spent for those customers?
+SELECT COUNT(distinct customers.acctnum), AVG(quantity*price) as total_revenue FROM BIT_DB.FebSales Feb
+LEFT JOIN BIT_DB.customers
+ON Feb.orderID = customers.order_id
+WHERE Feb.quantity > '2'
+AND length(orderID) = 6
+AND orderID <> 'Order ID';
