@@ -1,4 +1,4 @@
--- Looking into the Rolling Stone List of Top 200 singers, I picked the Top 10 and pulled their data from the internet to create three different tables.
+-- In this SQL, I'll be querying data on the Rolling Stone List of Top 10 singers to answer questions about the dataset.
 
 -- THe first table consists of the singer's full names, Rolling Stone Rankings, and their total number of record sales.
 CREATE TABLE singers (id INTEGER PRIMARY KEY,
