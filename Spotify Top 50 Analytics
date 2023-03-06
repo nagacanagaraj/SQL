@@ -38,8 +38,15 @@ GROUP BY artist_name
 ORDER BY COUNT(artist_name) DESC
 LIMIT 5;
 
---Lastly, I determined the TOP 10 most popular tracks from the set.
+--Then I determined the TOP 10 most popular tracks from the set.
 SELECT track_name, artist_name
 FROM BIT_DB.Spotifydata
 ORDER BY popularity DESC
 LIMIT 10;
+
+-- Lastly, I calculated the average popularity for the artists in the data.
+Then, for every artist with an average popularity of 90 or above, I labeled them as a “Top Star".
+WITH popularity_avg_CTE AS (SELECT spotifydata.artist_name, AVG(spotifydata.popularity) AS avg_popularity FROM Spotifydata
+GROUP BY spotifydata.artist_name)
+SELECT artist_name, avg_popularity, 'TOP STAR' AS tag  FROM popularity_avg_CTE
+WHERE avg_popularity >= 90;
